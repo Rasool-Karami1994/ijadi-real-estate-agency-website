@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { useEffect, useState } from "react";
+import { getAllPropeties } from "./services/propertiesServices";
+const App = () => {
+  const [properties, seProperties] = useState([]);
+  useEffect(() => {
+    getPropeties();
+  }, []);
+  const getPropeties = async () => {
+    const data = await getAllPropeties();
+    console.log(data.docs);
+    seProperties(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+  };
+  console.log(properties);
+  return <div>hell world</div>;
+};
 
 export default App;
